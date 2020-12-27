@@ -1,17 +1,21 @@
 import { createGlobalStyle, ThemeProvider, withTheme } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
-import Container from './../styles/Container';
+import { AuthProvider } from './../lib/auth';
+
+import { Container } from './../styles/Container';
 import Header from '../components/Header';
 
 const theme = {
   background: 'rgb(26, 32, 44) none repeat scroll 0% 0%',
   colors: {
     text: 'rgba(255, 255, 255, 0.92)',
+    primary: 'rgb(56, 178, 172)',
   },
 };
 
 const GlobalStyle = createGlobalStyle`
+
   ${normalize}
 
   html {
@@ -36,10 +40,12 @@ export default function App({ Component, pageProps }) {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Header />
-        <Container>
-          <Component {...pageProps} />
-        </Container>
+        <AuthProvider>
+          <Header />
+          <Container>
+            <Component {...pageProps} />
+          </Container>
+        </AuthProvider>
       </ThemeProvider>
     </>
   );
